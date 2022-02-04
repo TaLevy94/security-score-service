@@ -1,6 +1,5 @@
 from fastapi import APIRouter, status
 import logging
-
 from security_score.service import scan_trending_repos
 router = APIRouter(tags=['GitHub AppSec Scanner'])
 

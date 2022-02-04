@@ -1,4 +1,5 @@
 import logging
+from tempfile import mkdtemp
 
 def get_log_level(log_level):
     log_levels = {
@@ -8,3 +9,6 @@ def get_log_level(log_level):
         'ERROR': logging.ERROR
     }
     return log_levels.get(log_level, logging.DEBUG)
+
+async def create_tmp_dir():
+    return mkdtemp(prefix="repoScanner-")

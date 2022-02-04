@@ -1,6 +1,7 @@
 import os
 
-# Logger Settings
 LOG_LEVEL = os.getenv("LOG_LEVEL", "DEBUG")
 
-SUPPORTED_LANGUAGE = "javascript"
+SUPPORTED_LANGUAGES = os.getenv("SUPPORTED_LANGUAGE", ["javascript"])
+
+TEMPDIR_PREFIX=  os.getenv("TEMPDIR_PREFIX", "repoScanner-")
