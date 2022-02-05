@@ -15,11 +15,9 @@ class GithubAdapter:
         repos = client.search_repositories(self.supported_languages_query).get_page(1)
         return repos
 
-    async def clone_repo(self, repo):
-        url = repo.git_url
-        temp_dir = await utils.create_tmp_dir()
-        repo_clone = pygit2.clone_repository(url, temp_dir)
-        return repo_clone.workdir
+    async def clone_repo(self, remote_url, local_path):
+        repo_clone = pygit2.clone_repository(remote_url, local_path)
+        return local_path
   
     def _create_languages_query_parameters(self, supported_languages:list):
         query = 'q='

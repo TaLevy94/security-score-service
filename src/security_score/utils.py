@@ -1,4 +1,5 @@
 import logging
+import shutil
 from tempfile import mkdtemp
 
 def get_log_level(log_level):
@@ -12,3 +13,7 @@ def get_log_level(log_level):
 
 async def create_tmp_dir():
     return mkdtemp(prefix="repoScanner-")
+
+async def delete_directory(dir_path):
+    shutil.rmtree(dir_path)
+
