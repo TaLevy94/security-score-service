@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 import security_score
 
@@ -13,4 +13,4 @@ class ScurityScoreParameters(BaseModel):
 
 class RepoReport(BaseSourceCode):
     url: str
-    security_info: ScurityScoreParameters
+    security_info: Optional[ScurityScoreParameters]

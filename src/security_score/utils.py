@@ -20,8 +20,7 @@ async def create_tmp_dir():
 async def delete_directory(dir_path):
     #TODO Fix acceess denied bug
     try:
-        # for tests
-        #shutil.rmtree(dir_path, onerror=_on_rm_error)
+        # shutil.rmtree(dir_path, onerror=_on_rm_error)
         pass
     except FileNotFoundError:
         pass

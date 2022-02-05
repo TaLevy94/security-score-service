@@ -34,9 +34,11 @@ async def scan_repo(repo):
 
 async def scan_source_code(code_path:str, language:str):
     unused_packages = await detect_unused_dependencies(code_path, language)
-    secure_score = await calculate_secure_score(unused_packages)
-    securiy_props = ScurityScoreParameters(unused_deps=unused_packages, security_score=secure_score)
-    return securiy_props
+    if(unused_packages):
+        secure_score = await calculate_secure_score(unused_packages)
+        securiy_props = ScurityScoreParameters(unused_deps=unused_packages, security_score=secure_score)
+        return securiy_props
+    return None
 
 # TODO implement secure score calculation 
 async def calculate_secure_score(unused_packages):
@@ -50,13 +52,14 @@ async def detect_unused_dependencies(code_path: str, language:str):
 async def get_unused_dependencies_js(code_path: str, include_dev=True):
     js_command = f"depcheck {code_path} --json"
     try:
-            result = await utils.execute_os_command(js_command)
-            output = json.loads(result.stdout)
-            unused_dep = output['dependencies']
-            if(include_dev):
-                unused_dep.extend(output['devDependencies'])
+        result = await utils.execute_os_command(js_command)
+        output = json.loads(result.stdout)
+        unused_dep = output['dependencies']
+        if(include_dev):
+            unused_dep.extend(output['devDependencies'])
             return unused_dep
-    except Exception as e:
-        logging.error("error while using js depcheck")
-        return None
+    except:
+        error = result.stderr
+        logging.error(f"Fail dependency check, error: {error.decode('utf-8')}")
+    return None
 
