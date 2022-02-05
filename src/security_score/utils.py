@@ -18,10 +18,8 @@ async def create_tmp_dir():
     return mkdtemp(prefix="repoScanner-")
 
 async def delete_directory(dir_path):
-    #TODO Fix acceess denied bug
     try:
-        # shutil.rmtree(dir_path, onerror=_on_rm_error)
-        pass
+        shutil.rmtree(dir_path, onerror=_on_rm_error)
     except FileNotFoundError:
         pass
     
@@ -33,7 +31,9 @@ async def execute_os_command(command:str):
     return ps_output
 
 def _on_rm_error( func, path, exc_info):
-    # path contains the path of the file that couldn't be removed
-    # let's just assume that it's read-only and unlink it.
+    '''
+    path contains the path of the file that couldn't be removed,
+    let's just assume that it's read-only and unlink it.
+    '''
     os.chmod( path, stat.S_IWRITE )
     os.unlink( path )

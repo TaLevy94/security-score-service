@@ -17,8 +17,6 @@ class GithubAdapter:
         return repos
 
     async def clone_repo(self, remote_url, local_path):
-        # # for test usage
-        # return f"C:\\Users\\talev\\AppData\\Local\\Temp\\repoScanner-lj_wdgsu"
         with Repo.clone_from(remote_url, local_path) as repo_clone:
             return local_path
   

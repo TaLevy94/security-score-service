@@ -28,5 +28,5 @@ async def before_server_start():
 
 app.include_router(github.router)
 
-if __name__ == '__main__':  # For Debugging
+if __name__ == '__main__':
     uvicorn.run(app, host='0.0.0.0', port=5000)

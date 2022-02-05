@@ -3,7 +3,6 @@ FROM python:3.7-alpine3.15
 RUN /usr/local/bin/python -m pip install --upgrade pip
 RUN apk add gcc libffi-dev libstdc++ build-base linux-headers git npm
 RUN /usr/bin/npm install depcheck -g
-
 RUN adduser -D worker
 USER worker
 WORKDIR /home/worker
