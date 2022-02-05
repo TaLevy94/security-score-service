@@ -1,0 +1,5 @@
+uvicorn==0.17.4
+fastapi==0.73.0
+pygithub==1.55
+gitpython==3.1.26
+pydantic==1.9.0
