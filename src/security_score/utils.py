@@ -5,6 +5,8 @@ import logging
 import subprocess
 from tempfile import mkdtemp
 
+from errors import FilesDeletionFailedError
+
 def get_log_level(log_level):
     log_levels = {
         'DEBUG': logging.DEBUG,
@@ -18,10 +20,14 @@ async def create_tmp_dir():
     return mkdtemp(prefix="repoScanner-")
 
 async def delete_directory(dir_path):
+    # ToDo Monitor temp path to avoid users fatal error caused by cleanup 
     try:
         shutil.rmtree(dir_path, onerror=_on_rm_error)
     except FileNotFoundError:
         pass
+    except Exception as e:
+        logging.warning(f"Files delete command failed path: {dir_path}, error: {str(e)}")
+        raise FilesDeletionFailedError(str(e), dir_path)
     
 
 async def execute_os_command(command:str):
