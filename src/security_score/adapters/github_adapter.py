@@ -1,6 +1,7 @@
 import os
+from threading import local
 from github import Github
-import pygit2
+from git import Repo
 
 import config
 from security_score import utils
@@ -16,8 +17,8 @@ class GithubAdapter:
         return repos
 
     async def clone_repo(self, remote_url, local_path):
-        repo_clone = pygit2.clone_repository(remote_url, local_path)
-        return local_path
+        with Repo.clone_from(remote_url, local_path) as repo_clone:
+            return local_path
   
     def _create_languages_query_parameters(self, supported_languages:list):
         query = 'q='

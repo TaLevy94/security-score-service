@@ -29,6 +29,8 @@ async def scan_repo(remote_url, language):
 
 async def scan_source_code(local_code_path:str, language:str):
     unused_packages = await detect_unused_dependencies(local_code_path, language)
+    pass
+
 
 async def detect_unused_dependencies(local_code_path, language:str):
     js_command = f"depcheck {local_code_path} --json"
