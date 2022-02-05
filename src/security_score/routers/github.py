@@ -1,4 +1,5 @@
 from fastapi import APIRouter, status, HTTPException
+from typing import List
 import logging
 
 import config
@@ -8,7 +9,7 @@ from errors import GitHubAuthenticationError, GitHubCloneRepoFailedError, GitHub
 
 router = APIRouter(tags=['GitHub AppSec Scan'])
 
-@router.get("/v1/repos/trending",status_code=status.HTTP_200_OK, response_model= RepoReport)
+@router.get("/v1/repos/trending",status_code=status.HTTP_200_OK, response_model= List[RepoReport])
 async def get_trending_repos_risk_score(access_token: str ,count:int = config.DEFAULT_REPOS_COUNT):
     try:
         logging.info(f"trending repos request started for {count} repositories")
